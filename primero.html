@@ -16,8 +16,31 @@
       border-width: 1px;
       display: inline-block;
     }
+    body {
+        overflow:hidden;
+    }
+    .picker {
+      width: 100%;
+      height: 10px;
+      border-style: solid;
+      border-width: 2px;
+      margin-bottom: 5px;
+    }
+    .picker.red {
+      border-color: red;
+    }
+    .picker.green {
+      border-color: green;
+    }
+    .picker.blue {
+      border-color: blue;
+    }
   </style>
   <body>
+    <div class="picker red" >
+    </div>
+    <div class="picker green" ></div>
+    <div class="picker blue"></div>
 
     <div class="circulo" ></div>
     <div class="circulo" ></div>
@@ -593,13 +616,41 @@
     <div class="circulo" ></div>
 
     <script type="text/javascript">
+    var red = 0;
+    var green = 0;
+    var blue = 0;
+    var color;
+    function saveColor() {
+      color = '#'+(
+        ("00"+Math.floor(red  ).toString(16)).substr(-2)+
+        ("00"+Math.floor(green).toString(16)).substr(-2)+
+        ("00"+Math.floor(blue ).toString(16)).substr(-2)
+      );
+
+      var cirs = document.getElementsByClassName("picker");
+      for(var i = 0; i < cirs.length; i++) {
+          cirs[i].style.backgroundColor = color;
+      }
+    }
+    saveColor();
     var cirs = document.getElementsByClassName("circulo");
     for(var i = 0; i < cirs.length; i++) {
       cirs[i].onclick = function(event) {
-        event.target.style.backgroundColor = '#'+Math.floor(Math.random()*16777215).toString(16)
+        event.target.style.backgroundColor = color;
       }
     }
-
+    document.getElementsByClassName("picker")[0].onclick = function(event){
+      red = (event.x / event.target.offsetWidth) * 255;
+      saveColor();
+    }
+    document.getElementsByClassName("picker")[1].onclick = function(event){
+      green = (event.x / event.target.offsetWidth) * 255;
+      saveColor();
+    }
+    document.getElementsByClassName("picker")[2].onclick = function(event){
+      blue = (event.x / event.target.offsetWidth) * 255;
+      saveColor();
+    }
 
     </script>
   </body>

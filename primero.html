@@ -35,12 +35,25 @@
     .picker.blue {
       border-color: blue;
     }
+    .picker .dial {
+      position: relative;
+      height: 10px;
+      width: 3px;
+      margin-left: 0px;
+      display: flex;
+      background-color: white;
+    }
   </style>
   <body>
     <div class="picker red" >
+      <div class="dial"> </div>
     </div>
-    <div class="picker green" ></div>
-    <div class="picker blue"></div>
+    <div class="picker green" >
+      <span class="dial"> </span>
+    </div>
+    <div class="picker blue">
+      <span class="dial"> </span>
+    </div>
 
     <div class="circulo" ></div>
     <div class="circulo" ></div>
@@ -641,14 +654,17 @@
     }
     document.getElementsByClassName("picker")[0].onclick = function(event){
       red = (event.x / event.target.offsetWidth) * 255;
+      event.target.children[0].style.marginLeft = event.x+"px";
       saveColor();
     }
     document.getElementsByClassName("picker")[1].onclick = function(event){
       green = (event.x / event.target.offsetWidth) * 255;
+      event.target.children[0].style.marginLeft = event.x+"px";
       saveColor();
     }
     document.getElementsByClassName("picker")[2].onclick = function(event){
       blue = (event.x / event.target.offsetWidth) * 255;
+      event.target.children[0].style.marginLeft = event.x+"px";
       saveColor();
     }
 
